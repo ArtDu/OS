@@ -8,6 +8,10 @@
 
 int main(int argc, char* argv[])
 {
+    if( argc <= 1 ) {
+        printf("use %s <bash command>\n", argv[0]);
+        return 0;
+    }
     char* arguments[] = {argv[1], NULL};
     int wstatus;
 
@@ -41,11 +45,12 @@ int main(int argc, char* argv[])
         while(read(my_pipe[0], reading_buf, 1) > 0)
         {
             if ( reading_buf[0] == '\t' ) {
-                *reading_buf = ' ';
+                *reading_buf = '_';
                 write(1, reading_buf, 1);
                 write(1, reading_buf, 1);
             }
             else if ( reading_buf[0] == ' ' ) {
+                *reading_buf = '_';
                 write(1, reading_buf, 1);
             }
             else {

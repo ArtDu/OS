@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/art/study/semester_3/OS/lab_2/variant_22/main.c
+stdio.h
+-
+stdlib.h
+-
+sys/types.h
+-
+unistd.h
+-
+string.h
+-
+sys/wait.h
+-
+stdbool.h
+-
+vector.h
+/home/art/study/semester_3/OS/lab_2/variant_22/vector.h
+vector.cpp
+/home/art/study/semester_3/OS/lab_2/variant_22/vector.cpp
+
+/home/art/study/semester_3/OS/lab_2/variant_22/vector.cpp
+stdio.h
+-
+stdlib.h
+-
+vector.h
+/home/art/study/semester_3/OS/lab_2/variant_22/vector.h
+
+/home/art/study/semester_3/OS/lab_2/variant_22/vector.h
+

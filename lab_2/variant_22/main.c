@@ -51,7 +51,7 @@ int main( int argc, char* argv[] ) {
 
         if ( child_id == 0 ) // child process
         {
-            if ( close( my_pipe[0] ) ) { // child doesn't read
+            if ( close( my_pipe[0]  ) < 0 ) { // child doesn't read
                 perror("Failed to close pipe descriptors");
             }
              
@@ -86,18 +86,18 @@ int main( int argc, char* argv[] ) {
 
 
             
-            if ( close( my_pipe[1] ) ) { 
+            if ( close( my_pipe[1]  ) < 0 ) {
                 perror("Failed to close pipe descriptors");
             }
             break;
 
         } else // parent process
         {
-            if ( wait ( &wstatus ) ) {
+            if ( wait ( &wstatus ) < 0 ) {
                 perror("Failed in wait function");
             }
 
-            if ( close( my_pipe[1] ) ) { // parent doesn't write
+            if ( close( my_pipe[1] ) < 0 ) { // parent doesn't write
                 perror("Failed to close pipe descriptors");
             }
 
@@ -127,7 +127,7 @@ int main( int argc, char* argv[] ) {
                     break;
                 case 'q':
                     vector_free(&v);
-                    if ( close( my_pipe[0] ) ) { 
+                    if ( close( my_pipe[0] ) < 0 ) {
                         perror("Failed to close pipe descriptors");
                     }
                     return 0;
@@ -140,7 +140,7 @@ int main( int argc, char* argv[] ) {
 
             }
 
-            if ( close( my_pipe[0] ) ) { 
+            if ( close( my_pipe[0] ) < 0 ) {
                 perror("Failed to close pipe descriptors");
             }
 

@@ -1,3 +1,0 @@
-/home/art/study/semester_3/OS/lab_2/variant_22/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/art/study/semester_3/OS/lab_2/variant_22/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/art/study/semester_3/OS/lab_2/variant_22/cmake-build-debug/CMakeFiles/variant_22.dir

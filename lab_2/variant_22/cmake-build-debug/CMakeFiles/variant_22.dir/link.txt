@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/variant_22.dir/main.c.o  -o variant_22 

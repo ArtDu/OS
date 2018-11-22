@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "vector.h"
 
@@ -43,7 +44,7 @@ void vector_set(vector *v, int index, void *e)
     v->data[index] = e;
 }
 
-void *vector_get(vector *v, int index)
+void * vector_get(vector *v, int index)
 {
     if (index >= v->count) {
         return;
@@ -77,7 +78,7 @@ void vector_delete(vector *v, int index)
 
 void vector_free(vector *v)
 {
-    for ( int i = 0; i < v->size; ++i ) {
+    for ( int i = 0; i < v->count; ++i ) {
         free(v->data[i]);
     }
     free(v->data);

@@ -11,6 +11,10 @@
 #define string char *
 #define MIN_LENGTH 4
 
+int number_of_threads;
+int max_number_of_threads;
+pthread_mutex_t lock_number_of_threads;
+
 typedef struct {
     string* array;
     int left;
@@ -32,18 +36,17 @@ void* merge_sort_threaded( void* arg );
 
 void merge_sort( string* array, int left, int right );
 
-
 int main( int argc, char** argv ) {
 
-
-
     if ( argc < 2 ) {
-        fprintf( stdout, "Error: enter input file name (and output optionaly).\n" );
+        fprintf( stdout, "Error: enter input file name and count of threads.\n" );
         return 0;
     }
     FILE* input = fopen( argv[1], "r" );
     FILE* output = stdout;
-    if ( argc > 2 ) output = fopen( argv[2], "w" );
+    max_number_of_threads = 25;
+    if( argc == 3 )
+        max_number_of_threads = atoi(argv[2]);
 
     int size = string_count( input );
     //initialize_string_array(arr, 65, size);
@@ -143,6 +146,7 @@ void* merge_sort_threaded( void* arg ) {
     int r = data->right;
 
 
+
     if (r - l + 1 <= MIN_LENGTH) {
         qsort(data->array + l, r - l + 1, sizeof(string), cstring_cmp);
     } else {
@@ -154,10 +158,19 @@ void* merge_sort_threaded( void* arg ) {
         data_0.array = data->array;
 
 
+
+        int rc;
+        int created_thread_0;
+        int created_thread_1;
         pthread_t thread0;
-        int rc = pthread_create(&thread0, NULL, merge_sort_threaded, &data_0);
-        int created_thread_0 = 1;
-        if (rc) {
+        if( number_of_threads < max_number_of_threads ) {
+            pthread_mutex_lock(&lock_number_of_threads);
+            ++number_of_threads;
+            pthread_mutex_unlock(&lock_number_of_threads);
+            rc = pthread_create(&thread0, NULL, merge_sort_threaded, &data_0);
+            created_thread_0 = 1;
+        }
+        else if (rc || number_of_threads >= max_number_of_threads) {
             //Failed to creade thread
             created_thread_0 = 0;
             qsort(data->array + l, m - l + 1, sizeof(string), cstring_cmp);
@@ -169,11 +182,14 @@ void* merge_sort_threaded( void* arg ) {
         data_1.array =data->array;
 
         pthread_t thread1;
-        rc = pthread_create(&thread1, NULL, merge_sort_threaded, &data_1);
-
-        int created_thread_1 = 1;
-
-        if(rc) {
+        if( number_of_threads < max_number_of_threads ) {
+            pthread_mutex_lock(&lock_number_of_threads);
+            ++number_of_threads;
+            pthread_mutex_unlock(&lock_number_of_threads);
+            rc = pthread_create(&thread1, NULL, merge_sort_threaded, &data_1);
+            created_thread_1 = 1;
+        }
+        else if (rc || number_of_threads >= max_number_of_threads) {
             //Failed to create thread
             created_thread_1 = 0;
             qsort(data->array +m + 1, r - m, sizeof(string), cstring_cmp);
@@ -196,11 +212,14 @@ void merge_sort( string* array, int left, int right ) {
     data.left = left;
     data.right = right;
 
+    number_of_threads = 0;
+    pthread_mutex_init(&lock_number_of_threads, NULL);
+
+    pthread_mutex_lock(&lock_number_of_threads);
+    ++number_of_threads;
+    pthread_mutex_unlock(&lock_number_of_threads);
     pthread_t thread;
     int rc = pthread_create( &thread, NULL, merge_sort_threaded, &data );
-
-
-
 
     if ( rc ) {
         //Failed

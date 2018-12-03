@@ -4,7 +4,8 @@
 
 
 int main(int argc, char *argv[]) {
-    int cmd = 0, value = 0;
+    int cmd = 0;
+    char* value;
     tree *root = NULL;
 
     do {
@@ -19,19 +20,19 @@ int main(int argc, char *argv[]) {
 
         switch (cmd) {
             case 1:
-                value = get_int("value to insert");
+                value = get_key("value to insert");
                 insert(&root, value, NULL);
                 break;
             case 2:
-                value = get_int("value to find");
+                value = get_key("value to find");
                 if (search(root, value) == NULL) {
-                    printf("%d is not found in tree!\n", value);
+                    printf("%s is not found in tree!\n", value);
                 } else {
-                    printf("%d is found in tree!\n", value);
+                    printf("%s is found in tree!\n", value);
                 }
                 break;
             case 3:
-                value = get_int("value to delete");
+                value = get_key("value to delete");
                 root = _delete(root, value);
                 break;
             case 4:

@@ -3,11 +3,9 @@ FLAGS = -std=c99 -w -Werror -Wall -pedantic
 
 all: run
 
-stat: mainStat.o libtree.a
-	$(CC) $(FLAGS) -o stat mainStat.o -L. -ltree
-
-dyn: mainDyn.o libtree.so
-	$(CC) $(FLAGS) -o dyn mainDyn.o -L. -ltree -Wl,-rpath,. -ldl
+run: libtree.so mainStat.o mainDyn.o
+	$(CC) $(FLAGS) -o stat mainStat.o -L. -ltree -Wl,-rpath,.
+	$(CC) $(FLAGS) -o dyn mainDyn.o -ldl -Wl,-rpath,.
 
 mainStat.o: mainStat.c
 	$(CC) -c $(FLAGS) mainStat.c
@@ -15,17 +13,11 @@ mainStat.o: mainStat.c
 mainDyn.o: mainDyn.c
 	$(CC) -c $(FLAGS) mainDyn.c
 
-libtree.a: TreeStat.o
-	ar cr libtree.a TreeStat.o
+libtree.so: Tree.o
+	$(CC) $(FLAGS) -shared -o libtree.so Tree.o
 
-libtree.so: TreeDyn.o
-	$(CC) $(FLAGS) -shared -o libtree.so TreeDyn.o
-
-TreeStat.o: Tree.c
-	$(CC) -c $(FLAGS) Tree.c -o TreeStat.o
-
-TreeDyn.o: Tree.c
-	$(CC) -c -fPIC $(FLAGS) Tree.c -o TreeDyn.o
+Tree.o: Tree.c
+	$(CC) -c -fPIC $(FLAGS) Tree.c
 
 clean:
 	rm -f *.o stat dyn *.so *.a

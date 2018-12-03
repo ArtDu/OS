@@ -6,14 +6,15 @@
 
 int main(int argc, char *argv[]) {
 
-    tree* (*search)(tree *parent, int value);
+    tree* (*search)(tree *parent, char* value);
     tree* (*min)(tree *parent);
     tree* (*max)(tree *parent);
     void (*printTree)(tree *root, int tabs);
     void (*traverse)(tree *parent);
-    void (*insert)(tree **root, int value, tree *parent);
-    tree* (*_delete)(tree *t, int x);
+    void (*insert)(tree **root, char* value, tree *parent);
+    tree* (*_delete)(tree *t, char* x);
     int (*get_int)(char *prompt);
+    char* (*get_key)(char *prompt);
     void (*flush_stdin)(void);
 
     char *err;
@@ -33,9 +34,11 @@ int main(int argc, char *argv[]) {
     _delete = dlsym(libHandle, "_delete");
     get_int = dlsym(libHandle, "get_int");
     flush_stdin = dlsym(libHandle, "flush_stdin");
+    get_key = dlsym(libHandle, "get_key");
 
 
-    int cmd = 0, value = 0;
+    int cmd = 0;
+    char* value;
     tree *root = NULL;
 
     do {
@@ -50,19 +53,19 @@ int main(int argc, char *argv[]) {
 
         switch (cmd) {
             case 1:
-                value = get_int("value to insert");
+                value = get_key("value to insert");
                 insert(&root, value, NULL);
                 break;
             case 2:
-                value = get_int("value to find");
+                value = get_key("value to find");
                 if (search(root, value) == NULL) {
-                    printf("%d is not found in tree!\n", value);
+                    printf("%s is not found in tree!\n", value);
                 } else {
-                    printf("%d is found in tree!\n", value);
+                    printf("%s is found in tree!\n", value);
                 }
                 break;
             case 3:
-                value = get_int("value to delete");
+                value = get_key("value to delete");
                 root = _delete(root, value);
                 break;
             case 4:

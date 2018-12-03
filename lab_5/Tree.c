@@ -6,18 +6,19 @@
 #include "Tree.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <memory.h>
 
 // Binary search in a tree
-tree *search(tree *parent, int value) {
+tree *search(tree *parent, char* value) {
     if (parent == NULL) {
         return NULL;
     }
 
-    if (value == parent->value) {
+    if (strcmp(value,parent->value)==0) {
         return parent;
     }
 
-    if (value < parent->value) {
+    if (strcmp(value,parent->value)<0) {
         return search(parent->left, value);
     } else {
         return search(parent->right, value);
@@ -62,7 +63,7 @@ void traverse(tree *parent) {
 }
 
 // Insert an element in the tree
-void insert(tree **root, int value, tree *parent) {
+void insert(tree **root, char* value, tree *parent) {
     tree *p = NULL;
 
     // Insert to an empty tree
@@ -79,22 +80,22 @@ void insert(tree **root, int value, tree *parent) {
         return;
     }
 
-    if (value < (*root)->value) {
+    if (strcmp(value, (*root)->value) < 0) {
         insert(&((*root)->left), value, *root);
     } else {
         insert(&((*root)->right), value, *root);
     }
 }
 
-tree * _delete(tree *t, int x) {
+tree * _delete(tree *t, char* x) {
     tree * tmp;
     if (t == NULL) {
         return t;
     }
-    if (x < t->value) {
+    if (strcmp(x, t->value)<0) {
         t->left = _delete(t->left, x);
     } else {
-        if (x > t->value) {
+        if (strcmp(x, t->value)>0) {
             t->right = _delete(t->right, x);
         } else {
             if (t->left && t->right) {
@@ -129,6 +130,32 @@ int get_int(char *prompt) {
     return value;
 }
 
+// Get key
+char* get_key(char *prompt) {
+
+    printf("%s: \n", prompt);
+
+    int capacity_app_elem = 3;
+    int size_app_elem = 0;
+    char* app_element = ( char* ) malloc( sizeof( char ) * capacity_app_elem );
+    char c;
+    while ( 1 ) {
+        if ( size_app_elem == capacity_app_elem ) {
+            capacity_app_elem *= 2;
+            app_element = ( char* ) realloc( app_element, sizeof( char ) * capacity_app_elem );
+        }
+        c = getchar();
+        if ( c == '\n' || c == ' ' ) break;
+        app_element[size_app_elem] = c;
+        size_app_elem++;
+    }
+    app_element[size_app_elem] = '\0';
+
+
+
+    return app_element;
+}
+
 // Flush input buffer
 void flush_stdin(void) {
     while (getc(stdin) != '\n');
@@ -141,6 +168,6 @@ void printTree(tree *root, int tabs) {
     for ( int i = 0; i < tabs; ++i ) {
         printf("\t");
     }
-    printf("%d\n",root->value);
+    printf("%s\n",root->value);
     printTree(root->left, tabs+1);
 }

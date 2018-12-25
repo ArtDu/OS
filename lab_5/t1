@@ -1,0 +1,92 @@
+execve("./dyn", ["./dyn"], 0x7fff96e4f320 /* 52 vars */) = 0
+brk(NULL)                               = 0x55e882344000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/haswell/x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/haswell/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=93018, ...}) = 0
+mmap(NULL, 93018, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7ff83e6cf000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\16\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=14560, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ff83e6cd000
+mmap(NULL, 2109712, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7ff83e2bb000
+mprotect(0x7ff83e2be000, 2093056, PROT_NONE) = 0
+mmap(0x7ff83e4bd000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7ff83e4bd000
+close(3)                                = 0
+openat(AT_FDCWD, "./tls/haswell/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/haswell/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\34\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=2030544, ...}) = 0
+mmap(NULL, 4131552, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7ff83deca000
+mprotect(0x7ff83e0b1000, 2097152, PROT_NONE) = 0
+mmap(0x7ff83e2b1000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7ff83e2b1000
+mmap(0x7ff83e2b7000, 15072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7ff83e2b7000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ff83e6ca000
+arch_prctl(ARCH_SET_FS, 0x7ff83e6ca740) = 0
+mprotect(0x7ff83e2b1000, 16384, PROT_READ) = 0
+mprotect(0x7ff83e4bd000, 4096, PROT_READ) = 0
+mprotect(0x55e880c12000, 4096, PROT_READ) = 0
+mprotect(0x7ff83e6e6000, 4096, PROT_READ) = 0
+munmap(0x7ff83e6cf000, 93018)           = 0
+openat(AT_FDCWD, "./tls/haswell/x86_64/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/haswell/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/x86_64/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./tls/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/x86_64/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./haswell/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./x86_64/libtree.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "./libtree.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\t\0\0\0\0\0\0"..., 832) = 832
+brk(NULL)                               = 0x55e882344000
+brk(0x55e882365000)                     = 0x55e882365000
+fstat(3, {st_mode=S_IFREG|0775, st_size=12680, ...}) = 0
+getcwd("/home/art/study/semester_3/OS/lab_5", 128) = 36
+mmap(NULL, 2105496, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7ff83dcc7000
+mprotect(0x7ff83dcc9000, 2093056, PROT_NONE) = 0
+mmap(0x7ff83dec8000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7ff83dec8000
+close(3)                                = 0
+mprotect(0x7ff83dec8000, 4096, PROT_READ) = 0
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...}) = 0
+write(1, "Commands\n", 9Commands
+)               = 9
+write(1, "\n", 1
+)                       = 1
+write(1, "1 - Insert\n", 111 - Insert
+)            = 11
+write(1, "2 - Search\n", 112 - Search
+)            = 11
+write(1, "3 - Delete\n", 113 - Delete
+)            = 11
+write(1, "4 - Print tree\n", 154 - Print tree
+)        = 15
+write(1, "0 - Quit\n", 90 - Quit
+)               = 9
+write(1, "\n", 1
+)                       = 1
+write(1, "Command: \n", 10Command:
+)             = 10
+fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...}) = 0
+read(0, 0
+"0\n", 1024)                    = 2
+exit_group(0)                           = ?
++++ exited with 0 +++
+art@mars:~/study/semester_3/OS/lab_5$

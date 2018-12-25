@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <sys/mman.h>
 
+
 #include "vector.h"
 #include "vector.cpp"
 
@@ -51,7 +52,6 @@ void help_function() {
 int main( int argc, char* argv[] ) {
     int i, id, size;
     char * element;
-
 
     char *area;
     if ((area = mmap (0, sizeof(char) * 100, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0))

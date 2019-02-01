@@ -46,7 +46,7 @@ void send_recv()
     strcpy(ans, (char *) zmq_msg_data(&request));
     zmq_msg_close(&request);
 
-    printf("%s\n",ans);
+    printf("%s",ans);
 }
 
 void client_off()
@@ -166,7 +166,12 @@ int main(int argc, char *argv[]) {
             printf("Type chat name:\n");
             scanf("%s", message.chatName);
             printf("Type message:\n");
-            scanf("%s", message.text);
+            getchar();
+            char *line = NULL;
+            size_t size;
+            getline(&line, &size, stdin);
+            strcpy(message.text, line);
+//            scanf("%s", message.text);
             zmq_msg_init_size(&clientReq, sizeof(Message));
             memcpy(zmq_msg_data(&clientReq), &message, sizeof(Message));
 

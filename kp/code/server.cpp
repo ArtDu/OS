@@ -86,7 +86,8 @@ int main(int argc, char *argv[]) {
 
             std::string name, mes;
             in_history >> name;
-            in_history >> mes;
+            std::getline(in_history, mes);
+
             std::pair<std::string, std::string> chat_message = std::make_pair(name, mes);
             history.push_back(chat_message);
 
@@ -317,9 +318,9 @@ int main(int argc, char *argv[]) {
                                 users.push_back(j.first);
                             }
 
-                            if (j.second != message->client_proc_id) {
+                            else if (tree[j.first] != message->client_proc_id) {
 
-                                kill(j.second, SIGUSR1);
+                                kill(tree[j.first], SIGUSR1);
                             }
                         }
                         if (!users.empty()) {
@@ -355,7 +356,7 @@ int main(int argc, char *argv[]) {
         } else if (SEND_TO_SUBS == message->action) {
             bool success = true;
 
-            sprintf(ans, ans_publ);
+            strcat(ans, ans_publ);
 
 
         } else {
@@ -407,7 +408,7 @@ int main(int argc, char *argv[]) {
     for (auto &kv : history) {
         out_history << NODE << " ";
         out_history << kv.first << " ";
-        out_history << kv.second << " ";
+        out_history << kv.second << "\n";
         out_history << "\n";
     }
     out_history << END;

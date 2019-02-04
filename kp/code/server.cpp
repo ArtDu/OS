@@ -40,13 +40,13 @@ int main(int argc, char *argv[]) {
         port = argv[1];
 
     } else {
-        port = "4040";
+        port = (char*)"4040";
     }
     strcat(ans, port);
 
     std::ifstream in("clients.txt", std::ios::in);
     if (in.is_open()) {
-        while (1) {
+        while (true) {
 
             int ctmp;
             in >> ctmp;
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 
     std::ifstream in_history("history.txt", std::ios::in);
     if (in_history.is_open()) {
-        while (1) {
+        while (true) {
 
             int ctmp;
             in_history >> ctmp;
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
 
     std::ifstream in_chats("chats.txt", std::ios::in);
     if (in_chats.is_open()) {
-        while (1) {
+        while (true) {
 
             int ctmp;
             in_chats >> ctmp;
@@ -111,17 +111,13 @@ int main(int argc, char *argv[]) {
             in_chats >> elem.name;
             //std::cout << elem.name << "\n";
 
-            while (1) {
+            while (true) {
                 std::string name;
-                pid_t status;
                 in_chats >> name;
                 if (name == "-1") {
                     break;
                 }
-                in_chats >> status;
-                std::pair<std::string, pid_t> user = std::make_pair(name, status);
-                elem.usersInChat.push_back(user);
-                //std::cout << name << " " << status << "\n\n";
+                elem.usersInChat.push_back(name);
             }
             chats.push_back(elem);
 
@@ -132,7 +128,7 @@ int main(int argc, char *argv[]) {
     //std::vector<std::pair<std::vector<std::string>, std::string> > debtors; // users, message
     std::ifstream in_debtors("debtors.txt", std::ios::in);
     if (in_debtors.is_open()) {
-        while (1) {
+        while (true) {
 
             int ctmp;
             in_debtors >> ctmp;
@@ -146,7 +142,7 @@ int main(int argc, char *argv[]) {
             std::getline(in_debtors, mes);
             //std::cout << mes << "\n";
             std::vector<std::string> users;
-            while (1) {
+            while (true) {
                 std::string user;
                 in_debtors >> user;
                 if (user == "-1") {
@@ -225,10 +221,10 @@ int main(int argc, char *argv[]) {
                 sprintf(ans, "No chats");
             } else {
                 std::string chat = "Chats name(users in chat):\n";
-                for (auto i : chats) {
+                for (auto &i : chats) {
                     chat += i.name + "(";
-                    for (auto j : i.usersInChat) {
-                        chat += j.first + ", ";
+                    for (auto &j : i.usersInChat) {
+                        chat += j + ", ";
                     }
                     chat += ")\n";
 
@@ -243,12 +239,11 @@ int main(int argc, char *argv[]) {
 
             sprintf(ans, "Chat added");
         } else if (JOIN_TO_CHAT == message->action) {
-            bool success = 0;
+            bool success = false;
             for (int i = 0; i < chats.size(); ++i) {
                 if (strcmp(chats[i].name.c_str(), message->text) == 0) {
-                    std::pair<std::string, pid_t> tmp(clientName, message->client_proc_id);
-                    chats[i].usersInChat.push_back(tmp);
-                    success = 1;
+                    chats[i].usersInChat.push_back(clientName);
+                    success = true;
                 }
             }
 
@@ -262,9 +257,8 @@ int main(int argc, char *argv[]) {
             bool success = false;
             for (int i = 0; i < chats.size(); ++i) {
                 if (strcmp(chats[i].name.c_str(), message->text) == 0) {
-                    std::vector<std::pair<std::string, pid_t>>::iterator it_vec;
-                    std::pair<std::string, pid_t> tmp(clientName, message->client_proc_id);
-                    it_vec = find(chats[i].usersInChat.begin(), chats[i].usersInChat.end(), tmp);
+                    std::vector<std::string>::iterator it_vec;
+                    it_vec = find(chats[i].usersInChat.begin(), chats[i].usersInChat.end(), clientName);
                     if (it_vec != chats[i].usersInChat.end()) {
                         success = true;
                         chats[i].usersInChat.erase(it_vec);
@@ -300,27 +294,27 @@ int main(int argc, char *argv[]) {
             history.push_back(tmp);
 
 
-            for (auto i : chats) {
+            for (auto &i : chats) {
                 if (strcmp(i.name.c_str(), message->chatName) == 0) {
                     success_chat = true;
 
-                    for (auto j : i.usersInChat) {
-                        if (j.first == clientName) {
+                    for (auto &j : i.usersInChat) {
+                        if (j == clientName) {
                             success_user_in_chat = true;
                             break;
                         }
                     }
                     if (success_user_in_chat) {
                         std::vector<std::string> users;
-                        for (auto j : i.usersInChat) {
+                        for (auto &j : i.usersInChat) {
 
-                            if (tree[j.first] == 0) {//std::vector<std::pair<std::vector<std::string>, std::string> > debtors; // users, message
-                                users.push_back(j.first);
+                            if (tree[j] == 0) {//std::vector<std::pair<std::vector<std::string>, std::string> > debtors; // users, message
+                                users.push_back(j);
                             }
 
-                            else if (tree[j.first] != message->client_proc_id) {
+                            else if (tree[j] != message->client_proc_id) {
 
-                                kill(tree[j.first], SIGUSR1);
+                                kill(tree[j], SIGUSR1);
                             }
                         }
                         if (!users.empty()) {
@@ -345,7 +339,7 @@ int main(int argc, char *argv[]) {
 
         } else if (SHOW_HISTORY == message->action) {
             ans[0] = '\0';
-            for (auto i : history) {
+            for (auto &i : history) {
                 if (strcmp(i.first.c_str(), message->chatName) == 0) {
 
                     strcat(ans, i.second.c_str());
@@ -354,7 +348,6 @@ int main(int argc, char *argv[]) {
             }
 
         } else if (SEND_TO_SUBS == message->action) {
-            bool success = true;
 
             strcat(ans, ans_publ);
 
@@ -393,7 +386,7 @@ int main(int argc, char *argv[]) {
         out_chats << NODE << " ";
         out_chats << kv.name << " ";
         for (auto &user : kv.usersInChat) {
-            out_chats << user.first << " " << user.second << " ";
+            out_chats << user << " ";
         }
         out_chats << "-1";
         out_chats << "\n";

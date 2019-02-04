@@ -20,7 +20,7 @@ typedef struct {
 } Message ;
 
 typedef struct {
-    std::vector<std::pair<std::string,pid_t>> usersInChat;
+    std::vector<std::string> usersInChat;
     std::string name;
 } ChatElem ;
 
